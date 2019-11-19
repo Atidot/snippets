@@ -60,15 +60,15 @@ example = ContainerEnv Ubuntu
                        Nothing
 
 toDocker :: ContainerEnv -> Docker ()
-toDocker (ContainerEnv os users img pkgs environment runCmds entrypoint' command) = do
+toDocker (ContainerEnv os users img pkgs environment toRun entrypoint' command) = do
     from img
     foreach (makeUser os) users
     foreach (uncurry installPkgs) pkgs
     foreach (uncurry env) $ assocs environment
-    foreach run runCmds
+    foreach run toRun
     doIfJust (uncurry entrypoint) entrypoint'
     doIfJust cmd command
-        where doIfJust f Nothing = return ()
+        where doIfJust _ Nothing = return ()
               doIfJust f (Just x) = f x
 
 foreach :: (a -> Docker ()) 
