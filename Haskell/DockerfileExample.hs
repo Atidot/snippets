@@ -76,10 +76,12 @@ foreach :: (a -> Docker ())
         -> Docker ()
 foreach f xs = foldl' (>>) (return ()) (map f xs)
 
+-- The last character of the string passed to `run` would be '\n' without the 
+-- call to `take`. Removing the '\n' standardizes the whitespace.
 installPkgs :: String
             -> [String] 
             -> Docker ()
-installPkgs installer pkgs = run installation
+installPkgs installer pkgs = run (take (length installation - 1) installation)
     where installation = foldl' (++) (installer ++ endl1) (map instLine pkgs)
           instLine pkg = "    " ++ pkg ++ endl pkg
           endl pkg     = replicate (maxLength - paddedLength pkg) ' ' ++ " \\\n"
