@@ -51,7 +51,7 @@ jupyter = ("jupyter", ["notebook", "--ip-0.0.0.0", "--no-browser"])
 
 example :: ContainerEnv
 example = ContainerEnv Ubuntu 
-                       ["atidot"] 
+                       [User "atidot"] 
                        "ubuntu" 
                        [aptInstalls, pipInstalls]
                        empty
