@@ -22,7 +22,7 @@ data OS = Ubuntu
 
 data User = Root
           | User { _user_name :: !String }
-          deriving (Show, Read, Eq, Ord, Enum, Data, Typeable, Generic)
+          deriving (Show, Read, Eq, Ord, Data, Typeable, Generic)
 
 type Entrypoint = (String, [String])
 
