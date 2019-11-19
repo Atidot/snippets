@@ -5,6 +5,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 import "base"       Data.Foldable (foldl')
 import "base"       GHC.Generics (Generic)
@@ -12,6 +13,7 @@ import "base"       Data.Typeable (Typeable)
 import "base"       Data.Data (Data)
 import "containers" Data.Map.Strict (Map, empty)
 import "dockerfile" Data.Docker
+import "directory"  System.Directory (getCurrentDirectory)
 
 data OS = Ubuntu
         | RedHat
@@ -20,6 +22,7 @@ data OS = Ubuntu
 
 data User = Root
           | User { _user_name :: !String }
+          deriving (Show, Read, Eq, Ord, Enum, Data, Typeable, Generic)
 
 type Entrypoint = (String, [String])
 
