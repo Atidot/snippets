@@ -47,7 +47,7 @@ runCmds :: [String]
 runCmds = ["wget http://apache.mirrors.hoobly.com/drill/drill-1.16.0/apache-drill-1.16.0.tar.gz", "tar -xzvf apache-drill-1.16.0.tar.gz"]
 
 jupyter :: Entrypoint
-jupyter = ["jupyter", "notebook", "--ip-0.0.0.0", "--no-browser"]
+jupyter = ("jupyter", ["notebook", "--ip-0.0.0.0", "--no-browser"])
 
 example :: ContainerEnv
 example = ContainerEnv Ubuntu 
@@ -66,7 +66,7 @@ toDocker (ContainerEnv os users img pkgs environment runCmds entrypoint' command
     foreach (uncurry installPkgs) pkgs
     foreach (uncurry env) $ assocs environment
     foreach run runCmds
-    doIfJust (curry entrypoint) entrypoint'
+    doIfJust (uncurry entrypoint) entrypoint'
     doIfJust cmd command
         where doIfJust f Nothing = return ()
               doIfJust f (Just x) = f x
