@@ -11,7 +11,7 @@ import "base"       Data.Foldable (foldl')
 import "base"       GHC.Generics (Generic)
 import "base"       Data.Typeable (Typeable)
 import "base"       Data.Data (Data)
-import "containers" Data.Map.Strict (Map, empty)
+import "containers" Data.Map.Strict (Map, empty, assocs)
 import "dockerfile" Data.Docker
 import "directory"  System.Directory (getCurrentDirectory)
 
