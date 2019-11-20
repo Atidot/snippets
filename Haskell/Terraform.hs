@@ -6,7 +6,6 @@
 module Main where
 
 import "base"                   Control.Monad(void)
-import "base"                   Data.Traversable(for)
 import "base"                   Data.Monoid
 import "lens"                   Control.Lens
 import "terraform-hs"           Language.Terraform.Core
@@ -24,7 +23,7 @@ simpleConfig :: TF AwsInstance
 simpleConfig = awsInstance' "example" "ami-2757f631" "t2.micro"
 
 main :: IO ()
-main = generateFiles "/home/talz/development/snippets/Haskell" $ do
+main = generateFiles "" $ do
   withNameScope "example" $ do
     newAws (makeAwsParams "us-east-1"){aws_profile="default"}
     simpleConfig
